@@ -35,9 +35,9 @@ defmodule Colorstorm.Mixfile do
      {:cowboy, "~> 1.0"},
      {:gettext, "~> 0.9"},
      {:guardian, "~> 0.12.0"},
-     {:ja_serializer, "~> 0.9.0"},
+     {:ja_serializer, "~> 0.10.0"},
      {:phoenix, "~> 1.1.4"},
-     {:phoenix_ecto, "~> 2.0"},
+     {:phoenix_ecto, "~> 2.0.2"},
      {:postgrex, ">= 0.0.0"}]
   end
 

@@ -1,5 +1,7 @@
 defmodule Colorstorm.User do
+  alias Colorstorm.Repo
   use Colorstorm.Web, :model
+  import Ecto.Query, only: [from: 2]
 
   schema "users" do
     field :email, :string
@@ -7,6 +9,7 @@ defmodule Colorstorm.User do
     field :password_hash, :string
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
+    has_many :gradients, Colorstorm.Gradient
 
     timestamps
   end

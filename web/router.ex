@@ -4,6 +4,7 @@ defmodule Colorstorm.Router do
   # Unauthenticated requests
   pipeline :api do
     plug :accepts, ["json", "json-api"]
+    plug JaSerializer.Deserializer
   end
 
   # Authenticated requests
@@ -11,13 +12,32 @@ defmodule Colorstorm.Router do
     plug :accepts, ["json", "json-api"]
     plug Guardian.Plug.VerifyHeader, realm: "Bearer"
     plug Guardian.Plug.LoadResource
+    plug JaSerializer.Deserializer
   end
 
   scope "/api", Colorstorm do
     pipe_through :api
 
-    resources "session", SessionController, only: [:index]
+    resources "/gradients", GradientController, except: [:new, :edit] do
+      resources "/gradient-layers", GradientLayerController, except: [:new, :edit]
+      resources "/users", UserController, except: [:new, :edit]      
+    end
 
-    resources "user", UserController, except: [:new, :edit]
+    resources "/gradient-layers", GradientLayerController, except: [:new, :edit] do
+      resources "/gradients", GradientController, except: [:new, :edit]
+      resources "/gradient-stops", GradientStopController, except: [:new, :edit]      
+    end
+
+    resources "/gradient-stops", GradientStopController, except: [:new, :edit] do
+      resources "/gradient-layers", GradientLayerController, except: [:new, :edit]      
+    end
+
+    resources "/register", RegistrationController, only: [:create]
+
+    resources "/session", SessionController, only: [:index]
+
+    resources "/users", UserController, except: [:new, :edit] do
+      resources "/gradients", GradientController, except: [:new, :edit]
+    end
   end
 end

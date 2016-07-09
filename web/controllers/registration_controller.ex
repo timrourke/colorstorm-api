@@ -7,6 +7,7 @@ defmodule Colorstorm.RegistrationController do
     "data" => %{  
       "type" => "users",
       "attributes" => %{
+        "username" => username,
         "email" => email,
         "password" => password,
         "password-confirmation" => password_confirmation
@@ -15,6 +16,7 @@ defmodule Colorstorm.RegistrationController do
   }) do
 
     changeset = User.changeset %User{}, %{
+      username: username,
       email: email,
       password_confirmation: password_confirmation,
       password: password
