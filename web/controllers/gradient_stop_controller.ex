@@ -6,7 +6,7 @@ defmodule Colorstorm.GradientStopController do
 
   plug :scrub_params, "data" when action in [:create, :update]
 
-  @relationships ["gradient-layer"]
+  @relationships ["gradient_layer"]
 
   def index(conn, %{"gradient_layer_id" => gradient_layer_id}) do
     query = from gs in GradientStop,
@@ -16,16 +16,20 @@ defmodule Colorstorm.GradientStopController do
     render(conn, "index.json", data: gradient_stops)
   end
 
-  def index(conn, %{"include" => include}) do
+  def index(conn, %{"include" => include}) when include != "" do
+    rel_string = String.replace(include, "-", "_")
+
     gradientStops = 
-      include
+      rel_string
       |> String.split(",")
       |> Enum.filter(fn value -> value in @relationships end)
       |> Enum.map(fn value -> String.to_atom(value) end)
-      |> Enum.reduce(GradientStop, &gradient_stop_query/2)
+      |> gradient_stop_query
       |> Repo.all
 
-    render(conn, "index.json", data: gradientStops, opts: [include: include])
+    render(conn, "index.json", 
+      data: gradientStops, 
+      opts: [include: rel_string])
   end
 
   def index(conn, _params) do
@@ -33,8 +37,8 @@ defmodule Colorstorm.GradientStopController do
     render(conn, "index.json", data: gradient_stops)
   end
 
-  defp gradient_stop_query(value, _query) do 
-    from gl in GradientStop, preload: [^value]
+  defp gradient_stop_query(value) do 
+    from gs in GradientStop, preload: [^value]
   end
 
   def create(conn, %{"data" => data = %{"type" => "gradient-stops", "attributes" => _gradient_stop_params}}) do

@@ -7,18 +7,38 @@ defmodule Colorstorm.UserController do
 
   plug :scrub_params, "data" when action in [:create, :update]
 
+  @relationships ["gradients"]
+
   def index(conn, %{"gradient_id" => gradient_id}) do
     query = from u in User,
       join: g in Gradient, on: g.user_id == u.id,
       where: g.id == ^gradient_id,
       limit: 1
-    users = Repo.all(query)
-    render(conn, "index.json", data: users)
+    user = Repo.all(query)
+    render(conn, "index.json", data: user)
   end  
+
+  def index(conn, %{"include" => include}) when include != "" do
+    rel_string = String.replace(include, "-", "_")
+
+    users = 
+      rel_string
+      |> String.split(",")
+      |> Enum.filter(fn value -> value in @relationships end)
+      |> Enum.map(fn value -> String.to_atom(value) end)
+      |> user_query
+      |> Repo.all
+
+    render(conn, "index.json", data: users, opts: [include: rel_string])
+  end
 
   def index(conn, _params) do
     users = Repo.all(User)
     render(conn, "index.json", data: users)
+  end
+
+  defp user_query(value) do
+    from u in User, preload: [^value]
   end
 
   def create(conn, %{"data" => data = %{"type" => "users", "attributes" => _user_params}}) do

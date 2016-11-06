@@ -8,6 +8,7 @@ defmodule Colorstorm.Gradient do
     field :permalink, :string
     field :title, :string
     belongs_to :user, Colorstorm.User
+    has_many :gradient_layers, Colorstorm.GradientLayer
 
     timestamps
   end

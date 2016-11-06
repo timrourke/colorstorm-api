@@ -3,13 +3,16 @@ defmodule Colorstorm.GradientStop do
 
   schema "gradient_stops" do
     field :left, :decimal
-    field :color, :string
+    field :r, :integer
+    field :g, :integer
+    field :b, :integer
+    field :a, :decimal
     belongs_to :gradient_layer, Colorstorm.GradientLayer
 
     timestamps
   end
 
-  @required_fields ~w(left color gradient_layer_id)
+  @required_fields ~w(left r g b a gradient_layer_id)
   @optional_fields ~w()
 
   @doc """

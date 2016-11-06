@@ -40,4 +40,11 @@ defmodule Colorstorm.Router do
       resources "/gradients", GradientController, except: [:new, :edit]
     end
   end
+
+  def api_url do
+    cfg = Application.get_env(:colorstorm, Colorstorm.Endpoint)
+    host = cfg[:url][:host]
+    port = cfg[:http][:port]
+    url = "http://#{host}:#{port}/api"
+  end
 end

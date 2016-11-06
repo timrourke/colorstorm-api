@@ -7,7 +7,7 @@ defmodule Colorstorm.GradientController do
 
   plug :scrub_params, "data" when action in [:create, :update]
 
-  @relationships ["user"]
+  @relationships ["user", "gradient_layers"]
 
   def index(conn, %{"user_id" => user_id}) do
     query = from g in Gradient,
@@ -21,21 +21,25 @@ defmodule Colorstorm.GradientController do
     query = from g in Gradient,
       join: gl in GradientLayer, on: gl.gradient_id == g.id,
       where: gl.id == ^gradient_layer_id
-    gradients = Repo.one(query)
+    gradients = Repo.all(query)
 
     render(conn, "index.json", data: gradients)
   end
 
-  def index(conn, %{"include" => include}) do
+  def index(conn, %{"include" => include}) when include != "" do
+    rel_string = String.replace(include, "-", "_")
+
     gradients = 
-      include
+      rel_string
       |> String.split(",")
       |> Enum.filter(fn value -> value in @relationships end)
       |> Enum.map(fn value -> String.to_atom(value) end)
-      |> Enum.reduce(Gradient, &gradient_query/2)
+      |> gradient_query
       |> Repo.all
 
-    render(conn, "index.json", data: gradients, opts: [include: include])
+    render(conn, "index.json", 
+      data: gradients, 
+      opts: [include: rel_string])
   end
 
   def index(conn, _params) do
@@ -43,7 +47,7 @@ defmodule Colorstorm.GradientController do
     render(conn, "index.json", data: gradients)
   end
 
-  defp gradient_query(value, query) do 
+  defp gradient_query(value) do 
     from g in Gradient, preload: [^value]
   end
 

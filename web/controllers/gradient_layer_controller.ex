@@ -6,19 +6,24 @@ defmodule Colorstorm.GradientLayerController do
 
   plug :scrub_params, "data" when action in [:create, :update]
 
-  @relationships ["gradient", "gradient-stops"]
+  @relationships ["gradient", "gradient_stops"]
 
   def index(conn, %{"gradient_id" => gradient_id, "include" => include}) do
+    rel_string = String.replace(include, "-", "_")
+
     gradientLayers = 
-      include
+      rel_string
       |> String.split(",")
       |> Enum.filter(fn value -> value in @relationships end)
+      |> always_preload_gradient_stops
       |> Enum.map(fn value -> String.to_atom(value) end)
-      |> Enum.reduce(GradientLayer, &gradient_layer_query/2)
+      |> gradient_layer_query
       |> Ecto.Query.where(gradient_id: ^gradient_id)
       |> Repo.all
 
-    render(conn, "index.json", data: gradientLayers, include: include)
+    render(conn, "index.json", 
+      data: gradientLayers, 
+      opts: [include: rel_string])
   end
 
   def index(conn, %{"gradient_id" => gradient_id}) do
@@ -29,16 +34,20 @@ defmodule Colorstorm.GradientLayerController do
     render(conn, "index.json", data: gradient_layers)
   end
 
-  def index(conn, %{"include" => include}) do
+  def index(conn, %{"include" => include}) when include != "" do
+    rel_string = String.replace(include, "-", "_")
+
     gradientLayers = 
-      include
+      rel_string
       |> String.split(",")
       |> Enum.filter(fn value -> value in @relationships end)
       |> Enum.map(fn value -> String.to_atom(value) end)
-      |> Enum.reduce(GradientLayer, &gradient_layer_query/2)
+      |> gradient_layer_query
       |> Repo.all
 
-    render(conn, "index.json", data: gradientLayers, opts: [include: include])
+    render(conn, "index.json", 
+      data: gradientLayers, 
+      opts: [include: rel_string])
   end
 
   def index(conn, _params) do
@@ -46,8 +55,16 @@ defmodule Colorstorm.GradientLayerController do
     render(conn, "index.json", data: gradient_layers)
   end
 
-  defp gradient_layer_query(value, _query) do 
+  defp gradient_layer_query(value) do 
     from gl in GradientLayer, preload: [^value]
+  end
+
+  defp always_preload_gradient_stops(includes) do
+    if !Enum.member?(includes, "gradient_stops") do
+      includes = Enum.concat(includes, ["gradient_stops"])
+    end
+
+    includes
   end
 
   def create(conn, %{"data" => data = %{"type" => "gradient-layers", "attributes" => _gradient_layer_params}}) do
