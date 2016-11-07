@@ -35,7 +35,7 @@ config :guardian, Guardian,
   issuer: "Colorstorm",
   ttl: { 30, :days },
   verify_issuer: true,
-  secret_key: System.get_env("GUARDIAN_SECRET") || "uEk74kX3JIgmt/Oh+Xg+2CO5kLFGJbBajx337cXAopILnhkWPY6A3j3NaQa0+w5j",
+  secret_key: System.get_env("COLORSTORM_GUARDIAN_SECRET") || "uEk74kX3JIgmt/Oh+Xg+2CO5kLFGJbBajx337cXAopILnhkWPY6A3j3NaQa0+w5j",
   serializer: Colorstorm.GuardianSerializer
 
 # Import environment specific config. This must remain at the bottom
