@@ -1,7 +1,7 @@
 defmodule Colorstorm.User do
-  # alias Colorstorm.Repo
+  alias Colorstorm.Repo
   use Colorstorm.Web, :model
-  # import Ecto.Query, only: [from: 2]
+  import Ecto.Query, only: [from: 2]
 
   schema "users" do
     field :email, :string
