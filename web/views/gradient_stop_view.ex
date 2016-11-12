@@ -4,7 +4,7 @@ defmodule Colorstorm.GradientStopView do
 
   def type, do: "gradient-stops"
 
-  location "/api/gradient-stops/:id"
+  location "/gradient-stops/:id"
   attributes [:left, :r, :g, :b, :a, :inserted_at, :updated_at]
   
   has_one :gradient_layer,

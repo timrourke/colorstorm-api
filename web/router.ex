@@ -15,7 +15,7 @@ defmodule Colorstorm.Router do
     plug JaSerializer.Deserializer
   end
 
-  scope "/", Colorstorm do
+  scope "/api", Colorstorm do
     pipe_through :api
 
     resources "/gradients", GradientController, except: [:new, :edit] do

@@ -5,7 +5,7 @@ defmodule Colorstorm.GradientView do
 
   def type, do: "gradients"
 
-  location "/api/gradients/:id"
+  location "/gradients/:id"
   attributes [:body, :body_autoprefixed, :description, :permalink, :title, :inserted_at, :updated_at]
 
   has_one :user,
