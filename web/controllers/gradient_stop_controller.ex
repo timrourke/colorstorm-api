@@ -1,6 +1,6 @@
 defmodule Colorstorm.GradientStopController do
   use Colorstorm.Web, :controller
-
+  import Ecto.Query, only: [from: 2]
   alias Colorstorm.GradientStop
   alias JaSerializer.Params
 

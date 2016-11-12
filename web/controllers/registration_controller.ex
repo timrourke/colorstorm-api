@@ -1,6 +1,6 @@
 defmodule Colorstorm.RegistrationController do
   use Colorstorm.Web, :controller
-
+  import Ecto.Query, only: [from: 2]
   alias Colorstorm.User
 
   def create(conn, %{
