@@ -8,7 +8,7 @@ defmodule Colorstorm.GradientLayerView do
 
   def type, do: "gradient-layers"
 
-  location "/gradient-layers/:id"
+  location "/api/gradient-layers/:id"
   attributes [:angle, :order, :gradient_type, :inserted_at, :updated_at]
   
   has_one :gradient,
