@@ -62,9 +62,10 @@ defmodule Colorstorm.GradientLayerController do
   defp always_preload_gradient_stops(includes) do
     if !Enum.member?(includes, "gradient_stops") do
       includes = Enum.concat(includes, ["gradient_stops"])
+      includes
+    else
+      includes
     end
-
-    includes
   end
 
   def create(conn, %{"data" => data = %{"type" => "gradient-layers", "attributes" => _gradient_layer_params}}) do

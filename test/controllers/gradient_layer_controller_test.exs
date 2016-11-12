@@ -8,7 +8,7 @@ defmodule Colorstorm.GradientLayerControllerTest do
   @invalid_attrs %{}
 
   setup do
-    conn = conn()
+    conn = build_conn()
       |> put_req_header("accept", "application/vnd.api+json")
       |> put_req_header("content-type", "application/vnd.api+json")
 

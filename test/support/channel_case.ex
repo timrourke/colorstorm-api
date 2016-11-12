@@ -32,8 +32,10 @@ defmodule Colorstorm.ChannelCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Colorstorm.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Colorstorm.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Colorstorm.Repo, {:shared, self()})
     end
 
     :ok

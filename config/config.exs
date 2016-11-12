@@ -14,6 +14,8 @@ config :colorstorm, Colorstorm.Endpoint,
   pubsub: [name: Colorstorm.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :colorstorm, ecto_repos: [Colorstorm.Repo]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -24,7 +26,7 @@ config :phoenix, :format_encoders,
   "json-api": Poison
 
 # Configures JSONAPI mimetype
-config :plug, :mimes, %{
+config :mime, :types, %{
   "application/vnd.api+json" => ["json-api"]
 }
 

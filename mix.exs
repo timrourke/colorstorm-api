@@ -17,9 +17,22 @@ defmodule Colorstorm.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {Colorstorm, []},
-     applications: [:phoenix, :comeonin, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+    [
+      mod: {Colorstorm, []},
+      applications: [
+        :comeonin,
+        :cors_plug,
+        :cowboy,
+        :exrm,
+        :gettext,
+        :guardian,
+        :ja_serializer,
+        :phoenix,
+        :phoenix_ecto,
+        :phoenix_pubsub,
+        :postgrex
+      ]
+    ]
   end
 
   # Specifies which paths to compile per environment.
@@ -30,16 +43,21 @@ defmodule Colorstorm.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:comeonin, "~> 2.4"},
-     {:cors_plug, "~> 1.1"},
-     {:cowboy, "~> 1.0"},
-     {:gettext, "~> 0.9"},
-     {:guardian, "~> 0.12.0"},
-     {:ja_serializer, "~> 0.10.0"},
-     {:phoenix, "~> 1.1.4"},
-     {:phoenix_ecto, "~> 2.0.2"},
-     {:postgrex, ">= 0.0.0"}]
+    [
+      {:comeonin, "~> 2.5"},
+      {:cors_plug, "~> 1.1"},
+      {:cowboy, "~> 1.0"},
+      {:exrm, "~> 0.15.3"},
+      {:gettext, "~> 0.9"},
+      {:guardian, "~> 0.13.0"},
+      {:ja_serializer, "~> 0.10.0"},
+      {:phoenix, "~> 1.2.1"},
+      {:phoenix_ecto, "~> 3.0-rc"},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:postgrex, ">= 0.12.1"}
+    ]
   end
+
 
   # Aliases are shortcut or tasks specific to the current project.
   # For example, to create, migrate and run the seeds file at once:
@@ -48,7 +66,21 @@ defmodule Colorstorm.Mixfile do
   #
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
-    ["ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-     "ecto.reset": ["ecto.drop", "ecto.setup"]]
+    [
+      "ecto.setup": [
+          "ecto.create", 
+          "ecto.migrate", 
+          "run priv/repo/seeds.exs"
+      ],
+      "ecto.reset": [
+        "ecto.drop",
+        "ecto.setup"
+      ],
+      "test": [
+        "ecto.create --quiet", 
+        "ecto.migrate", 
+        "test"
+      ]
+    ]
   end
 end
