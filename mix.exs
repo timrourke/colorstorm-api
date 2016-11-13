@@ -58,7 +58,6 @@ defmodule Colorstorm.Mixfile do
     ]
   end
 
-
   # Aliases are shortcut or tasks specific to the current project.
   # For example, to create, migrate and run the seeds file at once:
   #
