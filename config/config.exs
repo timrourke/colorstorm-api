@@ -16,10 +16,21 @@ config :colorstorm, Colorstorm.Endpoint,
 
 config :colorstorm, ecto_repos: [Colorstorm.Repo]
 
+# tell logger to load a LoggerFileBackend processes
+config :logger,
+  backends: [{LoggerFileBackend, :error_log}]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+# configuration for the {LoggerFileBackend, :error_log} backend
+config :logger, :error_log,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:request_id],
+  path: "log/error.log",
+  level: :error
 
 # Configures JSONAPI encoder
 config :phoenix, :format_encoders,
