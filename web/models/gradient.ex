@@ -13,8 +13,8 @@ defmodule Colorstorm.Gradient do
     timestamps
   end
 
-  @required_fields ~w(body body_autoprefixed description permalink title user_id)
-  @optional_fields ~w()
+  @required_fields ~w(body body_autoprefixed title user_id)
+  @optional_fields ~w(description permalink)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -22,8 +22,9 @@ defmodule Colorstorm.Gradient do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
   end
+
 end

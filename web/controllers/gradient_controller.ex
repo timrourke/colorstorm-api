@@ -56,10 +56,21 @@ defmodule Colorstorm.GradientController do
     
     case Repo.insert(changeset) do
       {:ok, gradient} ->
-        conn
-        |> put_status(:created)
-        |> put_resp_header("location", gradient_path(conn, :show, gradient))
-        |> render("show.json", data: gradient)
+        gradient = Ecto.changeset.change gradient, 
+          permalink: create_permalink(gradient.title, gradient.id)
+
+        case Repo.update(gradient) do
+          {:ok, gradient_with_permalink} ->
+            conn
+            |> put_status(:created)
+            |> put_resp_header("location", gradient_path(conn, :show, gradient_with_permalink))
+            |> render("show.json", data: gradient_with_permalink)    
+          {:error, gradient} ->
+            conn
+            |> put_status(:unprocessable_entity)
+            |> render(Colorstorm.ChangesetView, "error.json", changeset: gradient)    
+        end
+          
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
@@ -94,6 +105,14 @@ defmodule Colorstorm.GradientController do
     Repo.delete!(gradient)
 
     send_resp(conn, :no_content, "")
+  end
+
+  defp create_permalink(title, id) do
+    id_title_truncated = Integer.to_string(id) <> title
+      |> String.slice(0,4)
+      |> String.pad_trailing(5, "0")
+      |> Base.hex_encode32(padding: false)
+      |> String.downcase
   end
 
 end
