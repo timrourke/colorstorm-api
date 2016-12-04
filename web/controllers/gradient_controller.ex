@@ -56,7 +56,7 @@ defmodule Colorstorm.GradientController do
     
     case Repo.insert(changeset) do
       {:ok, gradient} ->
-        gradient = Ecto.changeset.change gradient, 
+        gradient = Ecto.Changeset.change gradient, 
           permalink: create_permalink(gradient.title, gradient.id)
 
         case Repo.update(gradient) do

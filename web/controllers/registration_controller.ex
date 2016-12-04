@@ -3,6 +3,8 @@ defmodule Colorstorm.RegistrationController do
   import Ecto.Query, only: [from: 2]
   alias Colorstorm.User
 
+  plug :scrub_params, "data" when action in [:create]
+
   def create(conn, %{
     "data" => %{  
       "type" => "users",
@@ -11,7 +13,7 @@ defmodule Colorstorm.RegistrationController do
         "email" => email,
         "password" => password,
         "password-confirmation" => password_confirmation
-      },
+      }
     }
   }) do
 
