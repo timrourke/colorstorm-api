@@ -10,27 +10,16 @@ config :colorstorm, Colorstorm.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
   secret_key_base: "f39RVYckkdl/jKJTed7qC2OISf7j4H0fBXbfzGQdEUDT/M3b0N6sxAO+G5fcxMKk",
-  render_errors: [accepts: ~w(json)],
+  render_errors: [Colorstorm.ErrorView, accepts: ~w(json json-api)],
   pubsub: [name: Colorstorm.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 config :colorstorm, ecto_repos: [Colorstorm.Repo]
 
-# tell logger to load a LoggerFileBackend processes
-config :logger,
-  backends: [{LoggerFileBackend, :error_log}]
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
-
-# configuration for the {LoggerFileBackend, :error_log} backend
-config :logger, :error_log,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id],
-  path: "log/error.log",
-  level: :error
 
 # Configures JSONAPI encoder
 config :phoenix, :format_encoders,

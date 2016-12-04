@@ -51,7 +51,7 @@ defmodule Colorstorm.Mixfile do
       {:exrm, "~> 0.15.3"},
       {:gettext, "~> 0.9"},
       {:guardian, "~> 0.13.0"},
-      {:ja_serializer, "~> 0.10.0"},
+      {:ja_serializer, "~> 0.11.0"},
       {:logger_file_backend, "0.0.9"},
       {:phoenix, "~> 1.2.1"},
       {:phoenix_ecto, "~> 3.0-rc"},

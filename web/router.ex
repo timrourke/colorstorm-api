@@ -32,7 +32,7 @@ defmodule Colorstorm.Router do
       resources "/gradient-layers", GradientLayerController, except: [:new, :edit]      
     end
 
-    resources "/register", RegistrationController, only: [:create]
+    post "/register", RegistrationController, :create
 
     resources "/session", SessionController, only: [:index]
 

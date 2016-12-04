@@ -53,7 +53,7 @@ defmodule Colorstorm.GradientStopController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Colorstorm.ChangesetView, "error.json", changeset: changeset)
+        |> render(Colorstorm.GradientStopView, "errors.json-api", data: changeset)
     end
   end
 
@@ -72,7 +72,7 @@ defmodule Colorstorm.GradientStopController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Colorstorm.ChangesetView, "error.json", changeset: changeset)
+        |> render(Colorstorm.GradientStopView, "errors.json-api", data: changeset)
     end
   end
 

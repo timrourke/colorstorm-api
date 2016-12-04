@@ -80,7 +80,7 @@ defmodule Colorstorm.GradientLayerController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Colorstorm.ChangesetView, "error.json", changeset: changeset)
+        |> render(Colorstorm.GradientLayerView, "errors.json-api", data: changeset)
     end
   end
 
@@ -99,7 +99,7 @@ defmodule Colorstorm.GradientLayerController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Colorstorm.ChangesetView, "error.json", changeset: changeset)
+        |> render(Colorstorm.GradientLayerView, "errors.json-api", data: changeset)
     end
   end
 

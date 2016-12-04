@@ -56,10 +56,10 @@ defmodule Colorstorm.GradientController do
     
     case Repo.insert(changeset) do
       {:ok, gradient} ->
-        gradient = Ecto.Changeset.change gradient, 
+        changed_gradient = Ecto.Changeset.change gradient, 
           permalink: create_permalink(gradient.title, gradient.id)
 
-        case Repo.update(gradient) do
+        case Repo.update(changed_gradient) do
           {:ok, gradient_with_permalink} ->
             conn
             |> put_status(:created)
@@ -68,13 +68,13 @@ defmodule Colorstorm.GradientController do
           {:error, gradient} ->
             conn
             |> put_status(:unprocessable_entity)
-            |> render(Colorstorm.ChangesetView, "error.json", changeset: gradient)    
+            |> render(Colorstorm.GradientView, "errors.json-api", data: gradient)    
         end
           
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Colorstorm.ChangesetView, "error.json", changeset: changeset)
+        |> render(Colorstorm.GradientView, "errors.json-api", data: changeset)
     end
   end
 
@@ -93,7 +93,7 @@ defmodule Colorstorm.GradientController do
       {:error, changeset} ->
         conn
         |> put_status(:unprocessable_entity)
-        |> render(Colorstorm.ChangesetView, "error.json", changeset: changeset)
+        |> render(Colorstorm.ChangesetView, "errors.json-api", data: changeset)
     end
   end
 
