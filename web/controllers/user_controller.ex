@@ -15,7 +15,7 @@ defmodule Colorstorm.UserController do
       where: g.id == ^gradient_id,
       limit: 1
     user = Repo.all(query)
-    render(conn, "index.json", data: user)
+    render(conn, "index.json-api", data: user)
   end  
 
   def index(conn, %{"include" => include}) when include != "" do
@@ -29,12 +29,12 @@ defmodule Colorstorm.UserController do
       |> user_query
       |> Repo.all
 
-    render(conn, "index.json", data: users, opts: [include: rel_string])
+    render(conn, "index.json-api", data: users, opts: [include: rel_string])
   end
 
   def index(conn, _params) do
     users = Repo.all(User)
-    render(conn, "index.json", data: users)
+    render(conn, "index.json-api", data: users)
   end
 
   defp user_query(value) do

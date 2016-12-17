@@ -10,7 +10,7 @@ config :colorstorm, Colorstorm.Endpoint,
   http: [port: 4000],
   url: [host: "localhost"],
   #debug_errors: true,
-  code_reloader: true,
+  code_reloader: false,
   check_origin: false,
   watchers: []
 
@@ -30,3 +30,5 @@ config :colorstorm, Colorstorm.Repo,
   database: "colorstorm_dev",
   hostname: "localhost",
   pool_size: 10
+
+import_config "dev.secret.exs"

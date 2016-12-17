@@ -1,0 +1,53 @@
+    <!-- COPY BLOCK -->
+    <tr>
+        <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="600" class="wrapper" >
+              <!-- COPY -->
+              <tr>
+                <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 40px 30px; color: #666666; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                  <p style="margin: 0;">Welcome to ColorStorm, <%= @email_assigns["user"].username %>! Thanks for signing up. Before you log in, please confirm your email address by clicking the button below.</p>
+                </td>
+              </tr>
+              <!-- BULLETPROOF BUTTON -->
+              <tr>
+                <td bgcolor="#ffffff" align="left">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                              <td align="center" style="border-radius: 3px;" bgcolor="#FFA73B"><a href="<%= @email_assigns["email_confirmation_link_url"] %>" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;">Confirm Email</a></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <!-- COPY -->
+              <tr>
+                <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #666666; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                  <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
+                </td>
+              </tr>
+              <!-- COPY -->
+                <tr>
+                  <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                    <p style="margin: 0;"><a href="<%= @email_assigns["email_confirmation_link_url"] %>" target="_blank" style="color: #FFA73B;"><%= @email_assigns["email_confirmation_link_url"] %></a></p>
+                  </td>
+                </tr>
+              <!-- COPY -->
+              <tr>
+                <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #666666; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                  <p style="margin: 0;">If you have any questions, just reply to this email—we're always happy to help out.</p>
+                </td>
+              </tr>
+              <!-- COPY -->
+              <tr>
+                <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
+                  <p style="margin: 0;">Cheers,<br>The ColorStorm Team</p>
+                </td>
+              </tr>
+            </table>
+        </td>
+    </tr>

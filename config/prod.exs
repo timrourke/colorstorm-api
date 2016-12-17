@@ -15,6 +15,7 @@ config :colorstorm, Colorstorm.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "localhost"],
   cache_static_manifest: "priv/static/manifest.json",
+  code_reloader: false,
   server: true
 
 # tell logger to load a LoggerFileBackend processes
@@ -22,7 +23,7 @@ config :logger,
   backends: [{LoggerFileBackend, :error_log}]
 
 # Do not print debug messages in production
-config :logger, level: :info
+# config :logger, level: :info
 
 # configuration for the {LoggerFileBackend, :error_log} backend
 config :logger, :error_log,

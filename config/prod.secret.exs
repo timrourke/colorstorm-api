@@ -15,3 +15,13 @@ config :colorstorm, Colorstorm.Repo,
   hostname: "localhost",
   #url: System.get_env("DATABASE_URL"),
   pool_size: 20
+
+config :colorstorm, Colorstorm.Mailer,
+  adapter: Bamboo.SMTPAdapter,
+  server: SYSTEM.get_env("COLORSTORM_SMTP_HOST"),
+  port: SYSTEM.get_env("COLORSTORM_SMTP_PORT"),
+  username: SYSTEM.get_env("COLORSTORM_SMTP_USERNAME"),
+  password: SYSTEM.get_env("COLORSTORM_SMTP_PASSWORD"),
+  tls: :if_available, # can be `:always` or `:never`
+  ssl: true, # can be `true`
+  retries: 1

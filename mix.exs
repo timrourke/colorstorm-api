@@ -20,6 +20,8 @@ defmodule Colorstorm.Mixfile do
     [
       mod: {Colorstorm, []},
       applications: [
+        :bamboo,
+        :bamboo_smtp,
         :comeonin,
         :cors_plug,
         :cowboy,
@@ -29,6 +31,7 @@ defmodule Colorstorm.Mixfile do
         :ja_serializer,
         :logger_file_backend,
         :phoenix,
+        :phoenix_html,
         :phoenix_ecto,
         :phoenix_pubsub,
         :postgrex
@@ -45,6 +48,8 @@ defmodule Colorstorm.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bamboo, "~> 0.7"},
+      {:bamboo_smtp, "~> 1.2.1"},
       {:comeonin, "~> 2.5"},
       {:cors_plug, "~> 1.1"},
       {:cowboy, "~> 1.0"},
@@ -55,6 +60,7 @@ defmodule Colorstorm.Mixfile do
       {:logger_file_backend, "0.0.9"},
       {:phoenix, "~> 1.2.1"},
       {:phoenix_ecto, "~> 3.0-rc"},
+      {:phoenix_html, "~> 2.6"},
       {:phoenix_pubsub, "~> 1.0"},
       {:postgrex, ">= 0.12.1"}
     ]

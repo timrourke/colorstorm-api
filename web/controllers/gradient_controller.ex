@@ -14,7 +14,7 @@ defmodule Colorstorm.GradientController do
       where: g.user_id == ^user_id
     gradients = Repo.all(query)
 
-    render(conn, "index.json", data: gradients)
+    render(conn, "index.json-api", data: gradients)
   end
 
   def index(conn, %{"gradient_layer_id" => gradient_layer_id}) do
@@ -23,7 +23,7 @@ defmodule Colorstorm.GradientController do
       where: gl.id == ^gradient_layer_id
     gradients = Repo.all(query)
 
-    render(conn, "index.json", data: gradients)
+    render(conn, "index.json-api", data: gradients)
   end
 
   def index(conn, %{"include" => include}) when include != "" do
@@ -37,14 +37,14 @@ defmodule Colorstorm.GradientController do
       |> gradient_query
       |> Repo.all
 
-    render(conn, "index.json", 
+    render(conn, "index.json-api", 
       data: gradients, 
       opts: [include: rel_string])
   end
 
   def index(conn, _params) do
     gradients = Repo.all(Gradient)
-    render(conn, "index.json", data: gradients)
+    render(conn, "index.json-api", data: gradients)
   end
 
   defp gradient_query(value) do 

@@ -44,7 +44,8 @@ defmodule Colorstorm.Router do
   def api_url do
     cfg = Application.get_env(:colorstorm, Colorstorm.Endpoint)
     host = cfg[:url][:host]
-    port = cfg[:http][:port]
+    #port = cfg[:http][:port]
+    port = "8080"
     url = "http://#{host}:#{port}/api"
   end
 end

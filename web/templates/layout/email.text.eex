@@ -1,0 +1,8 @@
+<%= @email_assigns["hero_text"] %>
+
+<%= render @view_module, @view_template, assigns %>
+
+If you have any questions, just reply to this email—we're always happy to help out.
+
+Cheers,
+The ColorStorm Team

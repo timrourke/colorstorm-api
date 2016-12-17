@@ -1,0 +1,4 @@
+Welcome to ColorStorm, <%= @email_assigns["user"].username %>! Thanks for signing up. Before you log in, please confirm your email address by visiting the URL below.
+
+Copy and paste the following link in your browser:
+<%= @email_assigns["email_confirmation_link_url"] %>
