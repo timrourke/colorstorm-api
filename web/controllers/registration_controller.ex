@@ -2,7 +2,9 @@ defmodule Colorstorm.RegistrationController do
   use Colorstorm.Web, :controller
   import Ecto.Query, only: [from: 2]
   alias Colorstorm.User
+  alias Colorstorm.Redis
   alias JaSerializer.Params
+  require Logger
 
   plug :scrub_params, "data" when action in [:create]
   plug :put_view, Colorstorm.RegistrationView
@@ -12,7 +14,7 @@ defmodule Colorstorm.RegistrationController do
 
     case Repo.insert(changeset) do
       {:ok, user} ->
-        send_welcome_email(user)
+        send_welcome_email(user)        
 
         conn
         |> put_status(:created)

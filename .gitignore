@@ -10,6 +10,9 @@
 # Generate on crash by the VM
 erl_crash.dump
 
+# Static artifacts
+/priv/static
+
 # The config/prod.secret.exs file by default contains sensitive
 # data and you should not commit it into version control.
 #
@@ -18,3 +21,5 @@ erl_crash.dump
 # variables.
 #/config/prod.secret.exs
 /config/dev.secret.exs
+
+.DS_Store
