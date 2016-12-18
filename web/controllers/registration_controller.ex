@@ -14,9 +14,9 @@ defmodule Colorstorm.RegistrationController do
 
     case Repo.insert(changeset) do
       {:ok, user} ->
-        send_welcome_email(user)        
-
         conn
+        |> send_welcome_email(user)
+        |> test_redis(user)
         |> put_status(:created)
         |> put_resp_header("location", user_path(conn, :show, user))
         |> render(Colorstorm.UserView, "show.json-api", data: user)
@@ -28,7 +28,7 @@ defmodule Colorstorm.RegistrationController do
   
   end
 
-  defp send_welcome_email(user) do
+  defp send_welcome_email(conn, user) do
     email_assigns = %{
       "hero_text" => "Welcome to ColorStorm!",
       "user" => user,
@@ -37,5 +37,20 @@ defmodule Colorstorm.RegistrationController do
     
     Colorstorm.Email.welcome_html_email(email_assigns) 
     |> Colorstorm.Mailer.deliver_later
+
+    conn
+  end
+
+  defp test_redis(conn, user) do
+    uuid = Ecto.UUID.generate()
+
+    save_confirm_uuid = ~w(SET #{uuid} #{user.id}_#{user.email})
+
+    case Redis.command(save_confirm_uuid, timeout: 1800000) do
+      {:ok, message} -> Logger.info message
+      {:error, error} -> Logger.error error
+    end
+
+    conn
   end
 end

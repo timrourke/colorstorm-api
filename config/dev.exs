@@ -9,7 +9,7 @@ use Mix.Config
 config :colorstorm, Colorstorm.Endpoint,
   http: [port: 4000],
   url: [host: "localhost"],
-  #debug_errors: true,
+  debug_errors: true,
   code_reloader: false,
   check_origin: false,
   watchers: []

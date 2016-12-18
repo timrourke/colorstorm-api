@@ -13,8 +13,9 @@ defmodule Colorstorm do
       supervisor(Colorstorm.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(Colorstorm.Worker, [arg1, arg2, arg3]),
-      supervisor(Colorstorm.Redis, [])
     ]
+
+    Colorstorm.Redis.initialize()
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
