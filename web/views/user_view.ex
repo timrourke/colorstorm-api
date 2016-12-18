@@ -29,5 +29,4 @@ defmodule Colorstorm.UserView do
   def gradients_link(user, conn) do
     Colorstorm.Router.Helpers.user_gradient_url(conn, :index, user.id)
   end
-
 end

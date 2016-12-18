@@ -5,6 +5,7 @@ defmodule Colorstorm.User do
 
   schema "users" do
     field :email, :string
+    field :email_address_confirmed, :boolean
     field :username, :string
     field :password_hash, :string
     field :password, :string, virtual: true
