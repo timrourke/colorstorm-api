@@ -34,7 +34,8 @@ defmodule Colorstorm.Mixfile do
         :phoenix_html,
         :phoenix_ecto,
         :phoenix_pubsub,
-        :postgrex
+        :postgrex,
+        :redix
       ]
     ]
   end
@@ -62,7 +63,8 @@ defmodule Colorstorm.Mixfile do
       {:phoenix_ecto, "~> 3.0-rc"},
       {:phoenix_html, "~> 2.6"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:postgrex, ">= 0.12.1"}
+      {:postgrex, ">= 0.12.1"},
+      {:redix, "~> 0.4.0"}
     ]
   end
 
